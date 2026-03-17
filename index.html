@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMD Mode Auto Setup Tool Manual | Pokonya</title>
+    <meta name="description" content="Official manual for MMD Mode Auto Setup Tool for VRChat avatars. Learn how to enable MMD dance compatibility in one click.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #0f0a15; --card-bg: rgba(26, 18, 38, 0.7); --primary: #ff2d7b; --secondary: #bd00ff; --accent: #2de2ff; --text-main: #e2e8f0; --text-dim: #94a3b8; --gradient: linear-gradient(135deg, var(--primary), var(--secondary)); --border: rgba(255, 255, 255, 0.1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.05) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(255, 45, 123, 0.05) 0%, transparent 40%); color: var(--text-main); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 60px; position: relative; }
+        header::after { content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--gradient); border-radius: 2px; }
+        .lang-switcher { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .lang-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.85rem; }
+        .lang-btn.active { background: var(--gradient); color: #fff; border-color: transparent; }
+        [data-lang] { display: none; }
+        body.lang-jp [data-lang="jp"] { display: block; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-ko [data-lang="ko"] { display: block; }
+        body.lang-zh [data-lang="zh"] { display: block; }
+        .brand { font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; display: block; }
+        h1 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+        section { margin-bottom: 50px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px; backdrop-filter: blur(12px); animation: fadeIn 0.6s ease backwards; }
+        h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; color: #fff; }
+        h2::before { content: '😈'; font-size: 1.4rem; }
+        .intro-text { border-left: 4px solid var(--primary); padding-left: 20px; margin-bottom: 30px; font-size: 1.05rem; }
+        .steps { list-style: none; }
+        .step-item { position: relative; padding-left: 40px; margin-bottom: 25px; }
+        .step-item::before { content: attr(data-step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; color: #fff; }
+        .step-item h3 { margin-bottom: 8px; color: var(--accent); }
+        .step-item ul { list-style: none; margin-top: 5px; padding-left: 5px; }
+        .step-item li { position: relative; padding-left: 15px; color: var(--text-dim); font-size: 0.95rem; }
+        .step-item li::after { content: '•'; position: absolute; left: 0; color: var(--primary); }
+        code { background: rgba(45, 226, 255, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; font-weight: 600; }
+        strong { color: #fff; font-weight: 600; }
+        .alert-section { border-color: var(--primary); background: linear-gradient(to bottom right, rgba(255, 45, 123, 0.05), transparent); }
+        .alert-section h2::before { content: '❗'; }
+        .behavior-box { background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; border: 1px dashed var(--border); }
+        .behavior-box h4 { color: var(--primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 10px; }
+        .solution-box { background: rgba(45, 226, 255, 0.05); border-radius: 12px; padding: 20px; border: 1px solid rgba(45, 226, 255, 0.2); }
+        .solution-box h4 { color: var(--accent); margin-bottom: 10px; }
+        .notes-list { list-style: none; }
+        .notes-list li { padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--text-dim); font-size: 0.95rem; }
+        .notes-list li:last-child { border-bottom: none; }
+        .notes-list b { color: var(--primary); }
+        .highlight-card { background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 20px; margin-top: 20px; }
+        .highlight-card h4 { color: #fff; margin-bottom: 10px; font-size: 1.1rem; }
+        .env-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .env-item { background: rgba(255, 255, 255, 0.03); padding: 15px; border-radius: 12px; text-align: center; }
+        .env-item span { display: block; color: var(--text-dim); font-size: 0.8rem; margin-bottom: 5px; }
+        .ts-table { width: 100%; border-spacing: 0; margin-top: 20px; }
+        .ts-table th { text-align: left; border-bottom: 2px solid var(--border); padding: 10px; color: var(--accent); font-size: 0.9rem; }
+        .ts-table td { padding: 15px 10px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.9rem; }
+        footer { text-align: center; margin-top: 40px; padding: 40px 0; color: var(--text-dim); border-top: 1px solid var(--border); }
+        a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="lang-jp">
+    <div class="container">
+        <header>
+            <span class="brand">Pokonya</span>
+            <h1>MMD Mode Auto Setup Tool</h1>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang-code="jp" onclick="setLang('jp')">日本語</button>
+                <button class="lang-btn" data-lang-code="en" onclick="setLang('en')">English</button>
+                <button class="lang-btn" data-lang-code="ko" onclick="setLang('ko')">한국어</button>
+                <button class="lang-btn" data-lang-code="zh" onclick="setLang('zh')">中文</button>
+            </div>
+        </header>
+
+        <!-- JAPANESE -->
+        <div data-lang="jp">
+            <section>
+                <div class="intro-text">
+                    本ツールは、VRChatアバターにおいて<strong>「MMDワールドでの表情・リップシンク連動」</strong>を正しく反映させるためのセットアップを自動化するエディタ拡張スクリプトです。🐾
+                </div>
+                <h2>■ 導入方法</h2>
+                <div class="steps">
+                    <div class="step-item" data-step="1"><h3>unitypackageのインポート</h3><ul><li>Unityメニュー <code>Assets</code> → <code>Import Package</code> → <code>Custom Package</code> を選択して <code>MMDModeAutoSetupTool.unitypackage</code> をインポート。</li></ul></div>
+                    <div class="step-item" data-step="2"><h3>ツールを開く</h3><ul><li>メニュー <strong><code>Tools</code> → <code>MMD Mode Auto Setup Tool</code></strong> を選択。</li></ul></div>
+                    <div class="step-item" data-step="3"><h3>言語の選択</h3><ul><li>右上のボタンで言語を切り替えられます。</li></ul></div>
+                    <div class="step-item" data-step="4"><h3>アバターのセット</h3><ul><li>Hierarchy上のアバターをドロップエリアにドラッグ＆ドロップ。</li></ul></div>
+                    <div class="step-item" data-step="5"><h3>セットアップ実行</h3><ul><li><code>セットアップ実行</code> ボタンをクリック。完了ダイアログが出れば成功です。</li></ul></div>
+                </div>
+            </section>
+            <section>
+                <h2>■ セットアップ完了後にできること</h2>
+                <div class="env-grid">
+                    <div class="env-item"><span>Base Layer</span><strong>ステート追加</strong></div>
+                    <div class="env-item"><span>Parameters</span><strong>MMDMode追加</strong></div>
+                    <div class="env-item"><span>Ex Menu</span><strong>トグル追加</strong></div>
+                </div>
+                <div class="highlight-card">
+                    <h4>【VRChat内での使い方】</h4>
+                    <p>アクションメニューから <strong><code>MMDMode</code> を ON</strong> にしてください。MMDワールドの椅子に座った際（InStationがtrue時）、自動でMMDモードが有効化されます。離席すると自動で解除されます。</p>
+                </div>
+            </section>
+            <section class="alert-section">
+                <h2>■ 重要：シェイプキーの調整について</h2>
+                <div class="behavior-box">
+                    <h4>【仕様上の挙動】</h4>
+                    <p><strong>FaceEmoの設定は反映されない</strong>：MMDモードONでのダンス中、FaceEmoによるシェイプキー設定は事実上無効化されます。</p>
+                    <p style="margin-top:10px;"><strong>数値の倍加</strong>：上記を回避するためにボディ側のシェイプキーを直接設定すると、数値が倍近く反映されてしまう場合があります。</p>
+                </div>
+                <div class="solution-box">
+                    <h4>【解決策】</h4>
+                    <p>MMD中も正しい見た目を維持したい場合は、<strong>ボディ側のシェイプキー数値を「理想の数値の半分」に設定</strong>して調整を行ってください（例：40にするなら20に設定）。</p>
+                </div>
+            </section>
+            <section>
+                <h2>■ 注意事項・トラブルシューティング</h2>
+                <ul class="notes-list">
+                    <li><b>バックアップ</b>: 実行前に必ずアバターのバックアップを取ってください。</li>
+                    <li><b>容量制限</b>: メニューやパラメーターの空き容量（1bit/1スロット）を確認してください。</li>
+                </ul>
+                <table class="ts-table">
+                    <tr><th>現象</th><th>対策</th></tr>
+                    <tr><td>完了しない</td><td>Console ウィンドウのエラーを確認してください。</td></tr>
+                    <tr><td>反映されない</td><td>ExpressionMenuを新規作成し差し替えてから再実行。</td></tr>
+                </table>
+            </section>
+        </div>
+
+        <!-- ENGLISH -->
+        <div data-lang="en">
+            <section>
+                <div class="intro-text">
+                    This tool automates the setup for <strong>"MMD Eye/Lip Sync"</strong> synchronization on VRChat avatars. 🐾
+                </div>
+                <h2>■ How to Use</h2>
+                <div class="steps">
+                    <div class="step-item" data-step="1"><h3>Import unitypackage</h3><ul><li>Menu <code>Assets</code> → <code>Import Package</code> → <code>Custom Package</code> and select <code>MMDModeAutoSetupTool.unitypackage</code>.</li></ul></div>
+                    <div class="step-item" data-step="2"><h3>Open the Tool</h3><ul><li>Select <strong><code>Tools</code> → <code>MMD Mode Auto Setup Tool</code></strong> from the menu.</li></ul></div>
+                    <div class="step-item" data-step="3"><h3>Language Selection</h3><ul><li>Switch language using the buttons at the top right.</li></ul></div>
+                    <div class="step-item" data-step="4"><h3>Set Avatar</h3><ul><li>Drag & drop your avatar from the Hierarchy.</li></ul></div>
+                    <div class="step-item" data-step="5"><h3>Run Setup</h3><ul><li>Click <code>Install MMD Mode</code>. A success dialog will appear when finished.</li></ul></div>
+                </div>
+            </section>
+            <section>
+                <h2>■ After Setup</h2>
+                <div class="env-grid">
+                    <div class="env-item"><span>Base Layer</span><strong>States Added</strong></div>
+                    <div class="env-item"><span>Parameters</span><strong>MMDMode Added</strong></div>
+                    <div class="env-item"><span>Ex Menu</span><strong>Toggle Added</strong></div>
+                </div>
+                <div class="highlight-card">
+                    <h4>【How to use in VRChat】</h4>
+                    <p>Turn <strong><code>MMDMode</code> ON</strong> in the Action Menu. When you sit on an MMD station (InStation=true), MMD mode activates. It automatically deactivates when you stand up.</p>
+                </div>
+            </section>
+            <section class="alert-section">
+                <h2>■ Important: Shape Key Adjustment</h2>
+                <div class="behavior-box">
+                    <h4>【Behaviors】</h4>
+                    <p><strong>FaceEmo settings are ignored</strong>: While dancing in MMD mode, FaceEmo shape key overrides are disabled.</p>
+                    <p style="margin-top:10px;"><strong>Value Doubling</strong>: If you set body shape keys directly to compensate, values might appear doubled in MMD worlds.</p>
+                </div>
+                <div class="solution-box">
+                    <h4>【Solution】</h4>
+                    <p>Set body shape key values to <strong>"Half of your target value"</strong> (e.g., set to 20 to achieve 40 during dance).</p>
+                </div>
+            </section>
+            <section>
+                <h2>■ Notes & Troubleshooting</h2>
+                <ul class="notes-list">
+                    <li><b>Backup</b>: Always backup your avatar before running the setup.</li>
+                    <li><b>Capacity</b>: Check parameter/menu capacity (uses 1 bit / 1 slot).</li>
+                </ul>
+                <table class="ts-table">
+                    <tr><th>Issue</th><th>Solution</th></tr>
+                    <tr><td>Not finishing</td><td>Check the Console window for red errors.</td></tr>
+                    <tr><td>Not reflecting</td><td>Create a new ExpressionMenu asset and re-run.</td></tr>
+                </table>
+            </section>
+        </div>
+
+        <!-- KOREAN -->
+        <div data-lang="ko">
+            <section>
+                <div class="intro-text">
+                    이 툴은 VRChat 아바타에서 <strong>"MMD 월드의 표정 및 립싱크 연동"</strong>을 위한 설정을 자동화하는 에디터 스크립트입니다. 🐾
+                </div>
+                <h2>■ 도입 방법</h2>
+                <div class="steps">
+                    <div class="step-item" data-step="1"><h3>unitypackage 임포트</h3><ul><li>Unity 메뉴 <code>Assets</code> → <code>Import Package</code> → <code>Custom Package</code>에서 <code>MMDModeAutoSetupTool.unitypackage</code>를 선택하세요.</li></ul></div>
+                    <div class="step-item" data-step="2"><h3>툴 열기</h3><ul><li>메뉴 <strong><code>Tools</code> → <code>MMD Mode Auto Setup Tool</code></strong>을 클릭합니다.</li></ul></div>
+                    <div class="step-item" data-step="3"><h3>언어 선택</h3><ul><li>우측 상단 버튼으로 언어를 전환할 수 있습니다.</li></ul></div>
+                    <div class="step-item" data-step="4"><h3>아바타 세팅</h3><ul><li>Hierarchy 상의 아바타를 드롭 영역에 넣으세요.</li></ul></div>
+                    <div class="step-item" data-step="5"><h3>실행</h3><ul><li><code>세팅 실행</code> 버튼을 클릭합니다. 완료 창이 뜨면 성공입니다.</li></ul></div>
+                </div>
+            </section>
+            <section>
+                <h2>■ 설정 완료 후 안내</h2>
+                <div class="env-grid">
+                    <div class="env-item"><span>Base Layer</span><strong>상태 추가됨</strong></div>
+                    <div class="env-item"><span>Parameters</span><strong>MMDMode 추가됨</strong></div>
+                    <div class="env-item"><span>Ex Menu</span><strong>토글 추가됨</strong></div>
+                </div>
+                <div class="highlight-card">
+                    <h4>【VRChat에서의 사용법】</h4>
+                    <p>액션 메뉴에서 <strong><code>MMDMode</code>를 ON</strong>으로 설정하세요. MMD 월드의 의자에 앉으면(InStation=true), 자동으로 MMD 모드가 켜집니다.</p>
+                </div>
+            </section>
+            <section class="alert-section">
+                <h2>■ 중요: 쉐이프키 조정에 관하여</h2>
+                <div class="behavior-box">
+                    <h4>【사양 상의 거동】</h4>
+                    <p><strong>FaceEmo 설정은 반영되지 않음</strong>: MMD 모드가 켜져 있는 동안 FaceEmo의 쉐이프키 설정은 무시됩니다.</p>
+                    <p style="margin-top:10px;"><strong>수치 배가 현상</strong>: 이를 피하기 위해 바디의 쉐이프키를 직접 설정하면, 수치가 약 2배로 반영될 수 있습니다.</p>
+                </div>
+                <div class="solution-box">
+                    <h4>【해결책】</h4>
+                    <p>MMD 중에도 올바른 모습을 유지하려면, <strong>바디의 쉐이프키 수치를 "원하는 값의 절반"으로 설정</strong>하세요.</p>
+                </div>
+            </section>
+            <section>
+                <h2>■ 주의사항 및 문제 해결</h2>
+                <ul class="notes-list">
+                    <li><b>백업</b>: 실행 전 백업은 필수입니다.</li>
+                    <li><b>용량 제한</b>: 메뉴 및 파라미터 용량을 확인하세요 (1비트 / 1슬롯 사용).</li>
+                </ul>
+                <table class="ts-table">
+                    <tr><th>현상</th><th>대책</th></tr>
+                    <tr><td>완료되지 않음</td><td>Console 창에 빨간색 에러가 있는지 확인하세요.</td></tr>
+                    <tr><td>반영되지 않음</td><td>새로운 ExpressionMenu를 만들어 다시 시도해 보세요.</td></tr>
+                </table>
+            </section>
+        </div>
+
+        <!-- CHINESE -->
+        <div data-lang="zh">
+            <section>
+                <div class="intro-text">
+                    本工具用于自动设置 VRChat 角色的<strong>“MMD 世界表情与口型同步”</strong>。 🐾
+                </div>
+                <h2>■ 导入与使用</h2>
+                <div class="steps">
+                    <div class="step-item" data-step="1"><h3>导入资源包</h3><ul><li>Unity 菜单 <code>Assets</code> → <code>Import Package</code> → <code>Custom Package</code> 导入 <code>MMDModeAutoSetupTool.unitypackage</code>。</li></ul></div>
+                    <div class="step-item" data-step="2"><h3>打开工具</h3><ul><li>选择 <strong><code>Tools</code> → <code>MMD Mode Auto Setup Tool</code></strong>。</li></ul></div>
+                    <div class="step-item" data-step="3"><h3>语言选择</h3><ul><li>通过右上角按钮自由切换语言。</li></ul></div>
+                    <div class="step-item" data-step="4"><h3>设置角色</h3><ul><li>在 Hierarchy 中拖入角色。</li></ul></div>
+                    <div class="step-item" data-step="5"><h3>执行安装</h3><ul><li>点击 <code>执行设置</code>。完成后弹窗提示成功。</li></ul></div>
+                </div>
+            </section>
+            <section>
+                <h2>■ 安装完成后</h2>
+                <div class="env-grid">
+                    <div class="env-item"><span>基础层</span><strong>添加新状態</strong></div>
+                    <div class="env-item"><span>参数</span><strong>添加 MMDMode</strong></div>
+                    <div class="env-item"><span>菜单</span><strong>添加开关控制</strong></div>
+                </div>
+                <div class="highlight-card">
+                    <h4>【VRChat 内的操作】</h4>
+                    <p>在 Action Menu 中将 <strong><code>MMDMode</code> 设为 ON</strong>。坐在 MMD 舞台的椅子上时（InStation 为 true），将自動启用 MMD 模式。</p>
+                </div>
+            </section>
+            <section class="alert-section">
+                <h2>■ 重要：关于 Shape Key 的调整</h2>
+                <div class="behavior-box">
+                    <h4>【行为说明】</h4>
+                    <p><strong>FaceEmo 设置将失效</strong>：在 MMD 跳舞期间，FaceEmo 的 Shape Key 设置将被禁用。</p>
+                    <p style="margin-top:10px;"><strong>数值翻倍</strong>：为了补偿而直接设置 Body 的 Shape Key 时，数值可能会翻倍显示。</p>
+                </div>
+                <div class="solution-box">
+                    <h4>【解决方案】</h4>
+                    <p>若想维持效果，请将 Body 的 Shape Key 数值设置为<strong>“目标数值的一半”</strong>。</p>
+                </div>
+            </section>
+            <section>
+                <h2>■ 注意事項与故障排除</h2>
+                <ul class="notes-list">
+                    <li><b>备份</b>: 请务必在运行前备份角色。</li>
+                    <li><b>容量限制</b>: 占用 1 bit / 1 個项目。请检查容量。</li>
+                </ul>
+                <table class="ts-table">
+                    <tr><th>现象</th><th>对策</th></tr>
+                    <tr><td>安装未完成</td><td>请检查 Console 窗口中是否存在红色报错。</td></tr>
+                    <tr><td>设置无反应</td><td>重新创建一个 ExpressionMenu 资源并替换后重试。</td></tr>
+                </table>
+            </section>
+        </div>
+
+        <footer>
+            <div class="creator">Pokonya</div>
+            <p style="margin-top: 10px;"><a href="terms.html">📜 Terms of Use / 利用規約</a></p>
+            <p style="margin-top: 10px;">&copy; 2026 Pokonya All Rights Reserved.</p>
+        </footer>
+    </div>
+    <script>
+        function setLang(langCode) {
+            document.body.className = 'lang-' + langCode;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang-code') === langCode);
+            });
+            localStorage.setItem('mmd_tool_lang', langCode);
+        }
+        const savedLang = localStorage.getItem('mmd_tool_lang') || 'jp';
+        setLang(savedLang);
+    </script>
+</body>
+</html>

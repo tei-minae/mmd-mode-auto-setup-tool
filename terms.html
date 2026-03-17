@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | Pokonya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #0f0a15; --card-bg: rgba(26, 18, 38, 0.7); --primary: #ff2d7b; --secondary: #bd00ff; --accent: #2de2ff; --text-main: #e2e8f0; --text-dim: #94a3b8; --gradient: linear-gradient(135deg, var(--primary), var(--secondary)); --border: rgba(255, 255, 255, 0.1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Inter', sans-serif; line-height: 1.6; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; }
+        .lang-switcher { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .lang-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+        .lang-btn.active { background: var(--gradient); color: #fff; }
+        [data-lang] { display: none; }
+        body.lang-jp [data-lang="jp"] { display: block; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-ko [data-lang="ko"] { display: block; }
+        body.lang-zh [data-lang="zh"] { display: block; }
+        section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-top: 20px; animation: fadeIn 0.6s ease backwards; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 15px; border-bottom: 1px solid var(--border); }
+        th { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; }
+        .status-ok { color: #00ff88; font-weight: bold; }
+        .status-ng { color: #ff4444; font-weight: bold; }
+        footer { text-align: center; margin-top: 50px; padding: 40px; border-top: 1px solid var(--border); }
+        a { color: var(--accent); text-decoration: none; font-weight: bold; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="lang-jp">
+    <div class="container">
+        <header>
+            <h1>利用規約 / Terms of Use</h1>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang-code="jp" onclick="setLang('jp')">日本語</button>
+                <button class="lang-btn" data-lang-code="en" onclick="setLang('en')">English</button>
+                <button class="lang-btn" data-lang-code="ko" onclick="setLang('ko')">한국어</button>
+                <button class="lang-btn" data-lang-code="zh" onclick="setLang('zh')">中文</button>
+            </div>
+        </header>
+
+        <section>
+            <!-- JP -->
+            <div data-lang="jp">
+                <h2>ライセンス概要</h2>
+                <p>本ツールは <strong>VN3ライセンス</strong> に基づいて配布されています。</p>
+                <table>
+                    <thead><tr><th>項目</th><th>区分</th><th>備考</th></tr></thead>
+                    <tbody>
+                        <tr><td>商用利用</td><td class="status-ok">✅ 許可</td><td>配信、VTuber活動（法人は相談）</td></tr>
+                        <tr><td>営利展示</td><td class="status-ok">✅ 許可</td><td>VRChat内イベント等への持ち込み</td></tr>
+                        <tr><td>再配布</td><td class="status-ng">❌ 禁止</td><td>データ単体の二次配布は禁止</td></tr>
+                        <tr><td>改変</td><td class="status-ok">✅ 許可</td><td>スクリプトやギミックの改変可</td></tr>
+                    </tbody>
+                </table>
+                <h2 style="margin-top:30px;">免責事項</h2>
+                <p>使用による不利益に対し、Pokonyaは一切の責任を負いません。自己責任でご利用ください。</p>
+            </div>
+            <!-- EN -->
+            <div data-lang="en">
+                <h2>License Summary</h2>
+                <p>Distributed under the <strong>VN3 License</strong>.</p>
+                <table>
+                    <thead><tr><th>Item</th><th>Status</th><th>Note</th></tr></thead>
+                    <tbody>
+                        <tr><td>Commercial Use</td><td class="status-ok">✅ Permitted</td><td>Streaming, VTuber activities</td></tr>
+                        <tr><td>Profit Exhibition</td><td class="status-ok">✅ Permitted</td><td>VRChat internal events etc.</td></tr>
+                        <tr><td>Redistribution</td><td class="status-ng">❌ Prohibited</td><td>Do not redistribute original files</td></tr>
+                        <tr><td>Modification</td><td class="status-ok">✅ Permitted</td><td>Feel free to modify scripts</td></tr>
+                    </tbody>
+                </table>
+                <h2 style="margin-top:30px;">Disclaimer</h2>
+                <p>Pokonya is not responsible for any damage caused by using this tool. Use at your own risk.</p>
+            </div>
+            <!-- KO -->
+            <div data-lang="ko">
+                <h2>라이선스 개요</h2>
+                <p>본 툴은 <strong>VN3 라이선스</strong>를 기반으로 배포됩니다.</p>
+                <table>
+                    <thead><tr><th>항목</th><th>구분</th><th>비고</th></tr></thead>
+                    <tbody>
+                        <tr><td>상업적 이용</td><td class="status-ok">✅ 허용</td><td>방송, VTuber 활동 등</td></tr>
+                        <tr><td>영리 전시</td><td class="status-ok">✅ 허용</td><td>VRChat 내 이벤트 등의 반입</td></tr>
+                        <tr><td>재배포</td><td class="status-ng">❌ 금지</td><td>데이터 단체의 2차 배포는 금지합니다</td></tr>
+                        <tr><td>개조</td><td class="status-ok">✅ 허용</td><td>스크립트 및 기믹의 개조 가능</td></tr>
+                    </tbody>
+                </table>
+                <h2 style="margin-top:30px;">면책 조항</h2>
+                <p>본 툴 사용으로 인한 불이익에 대해 Pokonya는 책임을 지지 않습니다.</p>
+            </div>
+            <!-- ZH -->
+            <div data-lang="zh">
+                <h2>授权摘要</h2>
+                <p>本工具基于 <strong>VN3 许可证</strong> 发布。</p>
+                <table>
+                    <thead><tr><th>项目</th><th>状态</th><th>备注</th></tr></thead>
+                    <tbody>
+                        <tr><td>商用利用</td><td class="status-ok">✅ 允许</td><td>直播、VTuber 活动等</td></tr>
+                        <tr><td>盈利展示</td><td class="status-ok">✅ 允许</td><td>允许带入 VRChat 内部活动</td></tr>
+                        <tr><td>再分发</td><td class="status-ng">❌ 禁止</td><td>严禁任何形式的二次分发</td></tr>
+                        <tr><td>修改</td><td class="status-ok">✅ 允许</td><td>允许对脚本进行修改</td></tr>
+                    </tbody>
+                </table>
+                <h2 style="margin-top:30px;">免责声明</h2>
+                <p>对于使用本工具造成的任何损失，Pokonya 不承担法律责任。</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="creator">Pokonya</div>
+            <p><a href="index.html">📖 Back to Manual / マニュアルに戻る</a></p>
+            <p>&copy; 2026 Pokonya All Rights Reserved.</p>
+        </footer>
+    </div>
+    <script>
+        function setLang(langCode) {
+            document.body.className = 'lang-' + langCode;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang-code') === langCode);
+            });
+            localStorage.setItem('mmd_tool_lang', langCode);
+        }
+        const savedLang = localStorage.getItem('mmd_tool_lang') || 'jp';
+        setLang(savedLang);
+    </script>
+</body>
+</html>
